@@ -8,11 +8,13 @@ class MoviesController < ApplicationController
 
   def index
     sort = params[:sort]
-    @css_class = " "
+    @title_class = " "
+    @release_date_class = " "
     if !sort
       @movies = Movie.all
     else
-      @css_class = "hilite"
+      @title_class = "hilite" if sort == "title"
+      @release_date_class = "hilite" if sort == "release_date"
       @movies = Movie.order(sort)
     end
   end
