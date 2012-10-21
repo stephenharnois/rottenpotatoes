@@ -8,18 +8,10 @@ class MoviesController < ApplicationController
 
   def index
     sort = params[:sort]
-    @all_ratings = ['G', 'PG', 'PG-13', 'R', 'NC-17']
+    @all_ratings = Movie.all_ratings
     @selected_ratings = params[:ratings] ? params[:ratings].keys : @all_ratings
     @title_class = " "
     @release_date_class = " "
-    @rating_flags = []
-    @all_ratings.each do |rating|
-      if @selected_ratings.include?(rating)
-        @rating_flags << "checked = true"
-      else
-        @rating_flags << "checked = false"
-      end
-    end
     if !sort
       @movies = Movie.find_all_by_rating(@selected_ratings)
     else
